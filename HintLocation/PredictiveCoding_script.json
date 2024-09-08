@@ -1,0 +1,50 @@
+{
+    "name": "PredictiveCoding",
+    "namesave": "PredictiveCoding_save",
+    "save_dir": "./",
+    "dataset": {
+        "name": "dataset_color2",
+        "train": "/research/dept7/zhangz/Data/colo_train2_256target",
+        "val": "/research/dept7/zhangz/Data/colo_train2_256target",
+        "test": "/research/dept7/zhangz/Data/colo_train2_256target",
+        "testO": "/research/dept7/zhangz/Data/OTB/OTB50/unzipped/__MACOSX/Woman/Woman/img"
+    },
+    "model": "EncodeNet",
+	"guide_model_path": "./checkpoints",
+    "trainer": {
+        "seed": 131,
+        "batch_size": 2,
+        "n_epochs": 40,
+        "lr": 0.0001,
+        "weight_decay": 0,
+        "lr_sheduler": {
+            "factor": 0.5,
+            "patience": 3,
+            "threshold": 0.001,
+            "threshold_mode": "rel",
+            "cooldown": 0
+        },
+        "loss_func": "loss_gray",
+        "loss_weight": {
+	    	"reconLoss": 3.0,
+	    	"gradLoss": 0.5,
+	    	"mappingLoss": 1.0,
+	    	"contrastLoss": 0.001,
+	    	"totalLoss": 1.0
+        },
+        "loss_funcO": "loss_hint",
+        "loss_weightO": {
+	    	"valueLoss": 0.1,
+	    	"sparseLoss": 0.0004,
+	    	"reconLoss": 1.0,
+	    	"totalLoss": 1.0
+        },
+        "need_valid": true,
+        "display_iters": 200,
+        "save_epochs": 1
+    },
+    "tester": {
+        "with_cuda": true,
+        "batch_size": 1
+    }
+}
